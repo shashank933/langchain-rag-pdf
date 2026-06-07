@@ -1,0 +1,10 @@
+﻿langchain==0.3.21
+langchain-community==0.3.19
+langchain-deepseek==0.1.4
+chromadb==0.5.5
+sentence-transformers==3.4.1
+pypdf==5.3.1
+python-dotenv==1.1.0
+fastapi==0.115.12
+uvicorn==0.34.2
+python-multipart==0.0.20
