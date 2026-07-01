@@ -2,9 +2,8 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 
 const AuthContext = createContext(null);
 
-// Default credentials
-const DEFAULT_USERNAME = 'team@gmail.com';
-const DEFAULT_PASSWORD = 'team@123';
+const DEFAULT_USERNAME = import.meta.env.VITE_DEFAULT_USERNAME;
+const DEFAULT_PASSWORD = import.meta.env.VITE_DEFAULT_PASSWORD;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);

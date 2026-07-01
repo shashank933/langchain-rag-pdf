@@ -10,8 +10,6 @@ import {
   clearSession,
 } from './api';
 
-// ---------- Helper Components ----------
-
 function LoadingDots() {
   return (
     <div className="loading-dots">
@@ -26,8 +24,8 @@ function SourceCard({ source, index }) {
   return (
     <div className="source-card">
       <div className="source-card-header">
-        Source {index + 1}
-        {source.page != null && <> &middot; Page {source.page}</>}
+        SOURCE {index + 1}
+        {source.page != null && <> &middot; PAGE {source.page}</>}
         {source.source && <> &middot; {source.source}</>}
       </div>
       <div className="source-card-content">{source.content}</div>
@@ -60,7 +58,7 @@ function ChatMessage({ message }) {
               onToggle={(e) => setSourcesOpen(e.target.open)}
             >
               <summary>
-                📚 View Sources ({message.sources.length})
+                VIEW SOURCES ({message.sources.length})
               </summary>
               <div className="sources-list">
                 {message.sources.map((source, i) => (
@@ -73,8 +71,6 @@ function ChatMessage({ message }) {
     </div>
   );
 }
-
-// ---------- Main App (Authenticated) ----------
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -93,12 +89,10 @@ function Dashboard() {
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Initialize session on mount
   useEffect(() => {
     initSession();
   }, []);
 
-  // Auto-scroll to bottom when messages change
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
@@ -108,7 +102,7 @@ function Dashboard() {
       const session = await createSession();
       setSessionId(session.session_id);
     } catch (err) {
-      setError('Failed to create session. Is the backend running?');
+      setError('Failed to connect to backend. Is it running?');
     }
   }
 
@@ -190,7 +184,7 @@ function Dashboard() {
       setError(err.message);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: `❌ Error: ${err.message}`, sources: [] },
+        { role: 'assistant', content: `Error: ${err.message}`, sources: [] },
       ]);
     } finally {
       setAnswering(false);
@@ -207,27 +201,27 @@ function Dashboard() {
 
   return (
     <div className="app-layout">
-      {/* ===== Sidebar ===== */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h1>📄 PDF RAG with DeepSeek</h1>
+          <h1>PDF RAG</h1>
           <p>LangChain + DeepSeek</p>
         </div>
 
-        {/* User info & Logout */}
         <div className="sidebar-section">
           <div className="user-info">
             <span className="user-avatar">👤</span>
             <span className="user-name">{user?.username}</span>
-            <button className="btn btn-outline logout-btn" onClick={logout}>
-              🚪 Logout
+            <button
+              className="nb-btn nb-btn-outline logout-btn"
+              onClick={logout}
+            >
+              LOGOUT
             </button>
           </div>
         </div>
 
-        {/* Upload Section */}
         <div className="sidebar-section">
-          <h3>📤 Upload PDF</h3>
+          <h3>Upload PDF</h3>
           <div
             {...getRootProps()}
             className={`dropzone ${isDragActive ? 'active' : ''}`}
@@ -251,98 +245,87 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Process Button */}
+        {pdfLoaded && (
+          <div className="sidebar-section">
+            <h3>Status</h3>
+            <div className="status-card">
+              <div className="status-item">
+                <span
+                  className={`status-dot ${pdfLoaded ? 'success' : 'waiting'}`}
+                ></span>
+                <span className="status-label">
+                  {pdfLoaded ? 'PDF LOADED' : 'WAITING'}
+                </span>
+              </div>
+              <div className="status-item">
+                <span className="status-label">File:</span>
+                <span className="status-value">{pdfName}</span>
+              </div>
+              <div className="status-item">
+                <span className="status-label">Chunks:</span>
+                <span className="status-value">{chunkCount}</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {pdfLoaded && (
+          <div className="sidebar-section">
+            <button className="nb-btn nb-btn-danger" onClick={handleReset}>
+              RESET
+            </button>
+          </div>
+        )}
+
         {!pdfLoaded && !processing && (
           <div className="sidebar-section">
             <button
-              className="btn btn-primary"
+              className="nb-btn nb-btn-primary"
               onClick={() => document.querySelector('input[type="file"]')?.click()}
             >
-              🔄 Process PDF
+              PROCESS PDF
             </button>
           </div>
         )}
 
-        {/* Status */}
-        <div className="sidebar-section">
-          <h3>📊 Status</h3>
-          <div className="status-card">
-            <div className="status-item">
-              <span
-                className={`status-dot ${pdfLoaded ? 'success' : 'waiting'}`}
-              ></span>
-              <span className="status-label">
-                {pdfLoaded ? '✅ PDF Loaded' : '⏳ Waiting...'}
-              </span>
-            </div>
-            {pdfLoaded && (
-              <>
-                <div className="status-item">
-                  <span className="status-label">File:</span>
-                  <span className="status-value">{pdfName}</span>
-                </div>
-                <div className="status-item">
-                  <span className="status-label">Chunks:</span>
-                  <span className="status-value">{chunkCount}</span>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Clear & Reset */}
-        {pdfLoaded && (
-          <div className="sidebar-section">
-            <button className="btn btn-danger" onClick={handleReset}>
-              🗑️ Clear & Reset
-            </button>
-          </div>
-        )}
-
-        {/* Alerts */}
         {error && (
-          <div className="alert alert-error">
-            <span>❌</span> {error}
+          <div className="nb-alert nb-alert-error">
+            {error}
           </div>
         )}
         {success && (
-          <div className="alert alert-success">
-            <span>✅</span> {success}
+          <div className="nb-alert nb-alert-success">
+            {success}
           </div>
         )}
 
-        {/* How it works */}
         <div className="sidebar-section" style={{ marginTop: 'auto' }}>
-          <h3>ℹ️ How it works</h3>
+          <h3>How it works</h3>
           <div className="how-it-works">
             <ol>
               <li>Upload a PDF</li>
               <li>PDF is split into chunks</li>
-              <li>Chunks are embedded & indexed</li>
-              <li>Ask questions in natural language</li>
-              <li>DeepSeek answers with citations</li>
+              <li>Chunks are embedded</li>
+              <li>Ask questions</li>
+              <li>Get cited answers</li>
             </ol>
           </div>
         </div>
       </aside>
 
-      {/* ===== Main Content ===== */}
       <main className="main-content">
-        {/* Header */}
         <div className="main-header">
-          <h1>💬 Chat with your PDF</h1>
+          <h1>Chat with your PDF</h1>
           <p>
-            Upload a PDF and ask questions — get answers powered by LangChain +
-            DeepSeek
+            Upload a PDF and ask questions — powered by LangChain + DeepSeek
           </p>
           {pdfLoaded && (
             <div className="pdf-badge">
-              ✅ {pdfName} ({chunkCount} chunks)
+              {pdfName} ({chunkCount} chunks)
             </div>
           )}
         </div>
 
-        {/* Chat Area */}
         <div className="chat-area">
           {messages.length === 0 && (
             <div className="chat-empty">
@@ -350,14 +333,12 @@ function Dashboard() {
               {pdfLoaded ? (
                 <>
                   <h3>Ask a question</h3>
-                  <p>Type your question below to get started.</p>
+                  <p>Type your question below.</p>
                 </>
               ) : (
                 <>
                   <h3>No PDF loaded</h3>
-                  <p>
-                    Upload a PDF file using the sidebar to get started.
-                  </p>
+                  <p>Upload a PDF using the sidebar.</p>
                 </>
               )}
             </div>
@@ -379,7 +360,6 @@ function Dashboard() {
           <div ref={chatEndRef} />
         </div>
 
-        {/* Chat Input */}
         <div className="chat-input-area">
           <div className="chat-input-wrapper">
             <textarea
@@ -407,7 +387,7 @@ function Dashboard() {
               {answering ? (
                 <span className="spinner"></span>
               ) : (
-                '➤'
+                '→'
               )}
             </button>
           </div>
@@ -416,8 +396,6 @@ function Dashboard() {
     </div>
   );
 }
-
-// ---------- Root App ----------
 
 export default function App() {
   const { user } = useAuth();

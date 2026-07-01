@@ -3,8 +3,8 @@ import { useAuth } from './AuthContext';
 
 export default function LoginPage() {
   const { login, loginError, setLoginError } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState(import.meta.env.VITE_DEFAULT_USERNAME || '');
+  const [password, setPassword] = useState(import.meta.env.VITE_DEFAULT_PASSWORD || '');
   const [showPassword, setShowPassword] = useState(false);
 
   function handleSubmit(e) {
@@ -21,14 +21,14 @@ export default function LoginPage() {
       <div className="login-card">
         <div className="login-header">
           <div className="login-logo">📄</div>
-          <h1>PDF RAG with DeepSeek</h1>
-          <p>Sign in to access the application</p>
+          <h1>PDF RAG</h1>
+          <p>Upload. Ask. Get answers.</p>
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>
           {loginError && (
-            <div className="alert alert-error">
-              <span>❌</span> {loginError}
+            <div className="nb-alert nb-alert-error">
+              {loginError}
             </div>
           )}
 
@@ -78,11 +78,14 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary login-btn">
-            Sign In
+          <button type="submit" className="nb-btn nb-btn-primary login-btn">
+            SIGN IN
           </button>
         </form>
 
+        <div className="login-footer">
+          Powered by <code>LangChain</code> + <code>DeepSeek</code>
+        </div>
       </div>
     </div>
   );
