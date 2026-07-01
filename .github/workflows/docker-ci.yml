@@ -37,14 +37,14 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/pdf-rag:latest .
-          docker tag ${{ secrets.DOCKER_USERNAME }}/pdf-rag:latest \
-            ${{ secrets.DOCKER_USERNAME }}/pdf-rag:${{ github.sha }}
+          docker build -t talapelliwars/ragdemo:latest .
+          docker tag talapelliwars/ragdemo:latest \
+            talapelliwars/ragdemo:${{ github.sha }}
 
       - name: Push Docker images
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/pdf-rag:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/pdf-rag:${{ github.sha }}
+          docker push talapelliwars/ragdemo:latest
+          docker push talapelliwars/ragdemo:${{ github.sha }}
 
       - name: Redeploy on VPS
         if: github.event_name == 'push'
@@ -56,7 +56,7 @@ jobs:
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           port: 22
           script: |
-            cd /docker/pdf-rag
+            cd /docker/ragdemo
             docker compose pull
             docker compose up -d
             docker image prune -f
