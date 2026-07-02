@@ -1,4 +1,4 @@
-# LangChain RAG with DeepSeek - PDF Question Answering
+# SmartChat — RAG-Powered PDF Q&A with LangChain + DeepSeek
 
 A Retrieval-Augmented Generation (RAG) application that answers questions from PDF documents using LangChain and DeepSeek LLM.
 

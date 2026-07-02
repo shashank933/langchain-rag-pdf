@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Chat bubble -->
+  <rect x="20" y="10" width="160" height="110" rx="20" ry="20" fill="#FFD700" stroke="#1A1A1A" stroke-width="6"/>
+  <!-- Tail -->
+  <polygon points="60,120 80,155 95,120" fill="#FFD700" stroke="#1A1A1A" stroke-width="6" stroke-linejoin="round"/>
+  <line x1="80" y1="120" x2="80" y2="155" stroke="#1A1A1A" stroke-width="6"/>
+  <line x1="60" y1="120" x2="80" y2="155" stroke="#FFD700" stroke-width="6"/>
+  <!-- Spark/brain inside -->
+  <circle cx="80" cy="60" r="12" fill="#1A1A1A"/>
+  <circle cx="120" cy="50" r="10" fill="#4ECDC4" stroke="#1A1A1A" stroke-width="4"/>
+  <circle cx="115" cy="78" r="9" fill="#1A1A1A"/>
+</svg>

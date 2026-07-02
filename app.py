@@ -17,8 +17,8 @@ load_dotenv()
 
 # Page configuration
 st.set_page_config(
-    page_title="PDF RAG with DeepSeek",
-    page_icon="📄",
+    page_title="SmartChat — Talk to Your PDFs",
+    page_icon="💬",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -100,7 +100,7 @@ def main():
 
     # Sidebar
     with st.sidebar:
-        st.markdown("## 📄 PDF RAG with DeepSeek")
+        st.markdown("## 💬 SmartChat")
       
 
         st.markdown("### 📤 Upload PDF")
@@ -189,7 +189,7 @@ def main():
 
     with col1:
         st.markdown(
-            '<h1 class="main-header">📄 Chat with your PDF</h1>',
+            '<h1 class="main-header">💬 SmartChat</h1>',
             unsafe_allow_html=True,
         )
     with col2:
@@ -202,7 +202,7 @@ def main():
             )
 
     st.markdown(
-        '<p class="sub-header">Upload a PDF and ask questions — get answers powered by LangChain + DeepSeek</p>',
+        '<p class="sub-header">Upload a PDF and ask questions — powered by LangChain + DeepSeek RAG</p>',
         unsafe_allow_html=True,
     )
 

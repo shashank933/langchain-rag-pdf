@@ -203,8 +203,15 @@ function Dashboard() {
     <div className="app-layout">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h1>PDF RAG</h1>
-          <p>LangChain + DeepSeek</p>
+          <h1>
+            <img
+              src="/logo.svg"
+              alt="SmartChat"
+              className="brand-logo"
+            />
+            SmartChat
+          </h1>
+          <p>Smart document Q&A</p>
         </div>
 
         <div className="sidebar-section">
@@ -315,7 +322,7 @@ function Dashboard() {
 
       <main className="main-content">
         <div className="main-header">
-          <h1>Chat with your PDF</h1>
+          <h1>SmartChat</h1>
           <p>
             Upload a PDF and ask questions — powered by LangChain + DeepSeek
           </p>

@@ -20,8 +20,14 @@ export default function LoginPage() {
     <div className="login-page">
       <div className="login-card">
         <div className="login-header">
-          <div className="login-logo">📄</div>
-          <h1>PDF RAG</h1>
+          <div className="login-logo">
+            <img
+              src="/logo.svg"
+              alt="SmartChat logo"
+              style={{ width: 72, height: 72 }}
+            />
+          </div>
+          <h1>SmartChat</h1>
           <p>Upload. Ask. Get answers.</p>
         </div>
 
@@ -84,7 +90,7 @@ export default function LoginPage() {
         </form>
 
         <div className="login-footer">
-          Powered by <code>LangChain</code> + <code>DeepSeek</code>
+          Powered by <code>LangChain</code> + <code>DeepSeek</code><br/>RAG-based document intelligence
         </div>
       </div>
     </div>
