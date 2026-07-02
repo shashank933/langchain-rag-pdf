@@ -11,7 +11,7 @@ from pathlib import Path
 import streamlit as st
 from dotenv import load_dotenv
 
-from rag_pipeline import RAGPipeline
+from rag_pipeline import RAGPipeline, GuardrailViolation
 
 load_dotenv()
 
@@ -258,6 +258,16 @@ def main():
                                 "role": "assistant",
                                 "content": answer,
                                 "sources": sources,
+                            }
+                        )
+                    except GuardrailViolation as e:
+                        refusal_msg = str(e)
+                        st.warning(refusal_msg)
+                        st.session_state.messages.append(
+                            {
+                                "role": "assistant",
+                                "content": refusal_msg,
+                                "sources": [],
                             }
                         )
                     except Exception as e:

@@ -24,7 +24,7 @@ from pydantic import BaseModel
 # Add project root to sys.path so rag_pipeline.py can be imported
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from rag_pipeline import RAGPipeline
+from rag_pipeline import RAGPipeline, GuardrailViolation
 
 load_dotenv()
 
@@ -249,6 +249,9 @@ async def ask_question(session_id: str, request: AskRequest):
             )
 
         return AskResponse(answer=answer, sources=[s.model_dump() for s in sources])
+
+    except GuardrailViolation as e:
+        return AskResponse(answer=str(e), sources=[])
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating answer: {str(e)}")
