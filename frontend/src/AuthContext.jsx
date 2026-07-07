@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 
 const AuthContext = createContext(null);
 
-const DEFAULT_USERNAME = import.meta.env.VITE_DEFAULT_USERNAME;
-const DEFAULT_PASSWORD = import.meta.env.VITE_DEFAULT_PASSWORD;
+const DEFAULT_USERNAME = import.meta.env.DEFAULT_USERNAME;
+const DEFAULT_PASSWORD = import.meta.env.DEFAULT_PASSWORD;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);

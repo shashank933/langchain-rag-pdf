@@ -3,8 +3,8 @@ import { useAuth } from './AuthContext';
 
 export default function LoginPage() {
   const { login, loginError, setLoginError } = useAuth();
-  const [username, setUsername] = useState(import.meta.env.VITE_DEFAULT_USERNAME || '');
-  const [password, setPassword] = useState(import.meta.env.VITE_DEFAULT_PASSWORD || '');
+  const [username, setUsername] = useState(import.meta.env.DEFAULT_USERNAME || '');
+  const [password, setPassword] = useState(import.meta.env.DEFAULT_PASSWORD || '');
   const [showPassword, setShowPassword] = useState(false);
 
   function handleSubmit(e) {
