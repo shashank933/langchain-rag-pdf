@@ -37,14 +37,14 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t talapelliwars/ragdemo:latest .
-          docker tag talapelliwars/ragdemo:latest \
-            talapelliwars/ragdemo:${{ github.sha }}
+          docker build -t talapelliwars/smartchat:latest .
+          docker tag talapelliwars/smartchat:latest \
+            talapelliwars/smartchat:${{ github.sha }}
 
       - name: Push Docker images
         run: |
-          docker push talapelliwars/ragdemo:latest
-          docker push talapelliwars/ragdemo:${{ github.sha }}
+          docker push talapelliwars/smartchat:latest
+          docker push talapelliwars/smartchat:${{ github.sha }}
 
       - name: Redeploy on VPS
         if: github.event_name == 'push'
